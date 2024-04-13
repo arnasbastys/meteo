@@ -13,9 +13,11 @@ async function fetchHourlyWeather(city) {
 }
 
 function drawChart(data, elementId, valueKey, label, yAxisLabel) {
+  const container = d3.select('#' + elementId);
+  const containerWidth = parseInt(container.style('width'));
   const margin = { top: 40, right: 20, bottom: 60, left: 50 },
-    width = 600 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = containerWidth - margin.left - margin.right,
+    height = (containerWidth / 3) * 2 - margin.top - margin.bottom;
 
   const svg = d3
     .select('#' + elementId)
@@ -84,7 +86,7 @@ function drawChart(data, elementId, valueKey, label, yAxisLabel) {
 
   svg
     .append('text')
-    .attr('transform', `translate(${width / 2},${height + margin.bottom - 10})`)
+    .attr('transform', `translate(${width / 2}, -20)`)
     .style('text-anchor', 'middle')
     .text(label);
 

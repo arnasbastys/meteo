@@ -80,15 +80,35 @@ svg text {
 
 @media (max-width: 600px) {
   .chart {
-    height: 300px; /* Smaller height for smaller screens */
+    height: 250px; /* Reduced height for smaller screens */
+    aspect-ratio: auto; /* Allows the browser to adjust the aspect ratio */
   }
 
   .current-weather h1,
   .current-weather div {
-    font-size: 20px; /* Larger font for readability on mobile */
+    font-size: 18px; /* Slightly reduced size for very small screens */
   }
 
   .axis text {
-    font-size: 10px; /* Adjusting to smaller screen */
+    font-size: 10px; /* Adjusted for smaller screen */
+  }
+}
+
+/* For extremely small screens like iPhone SE */
+@media (max-width: 320px) {
+  .chart {
+    height: 200px; /* Further reduced height */
+  }
+
+  .current-weather h1 {
+    font-size: 16px; /* Further reduce for tiny screens */
+  }
+
+  .current-weather div {
+    font-size: 14px; /* Smaller font size */
+  }
+
+  .axis text {
+    font-size: 8px; /* Very small font size for axis */
   }
 }
