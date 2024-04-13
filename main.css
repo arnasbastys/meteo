@@ -1,0 +1,54 @@
+.chart {
+  width: 100%; /* Adjust based on your layout needs */
+  max-width: 600px;
+  height: 400px;
+  margin: 20px auto;
+}
+
+.current-weather {
+  text-align: center;
+  padding: 20px;
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.current-weather h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+}
+
+.current-weather div {
+  font-size: 18px;
+}
+
+.line {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.gradient {
+  stroke: url(#gradient);
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: grey;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.current-time-marker {
+  stroke: red; /* Red line for visibility */
+  stroke-width: 2px;
+  stroke-dasharray: 5, 5; /* Dashed line style */
+}
