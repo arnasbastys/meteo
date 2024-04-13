@@ -1,5 +1,5 @@
 async function fetchHourlyWeather(city) {
-  const url = `http://localhost:3000/weather/hourly/${city}`;
+  const url = `https://light-meteo.deno.dev/weather/hourly/${city}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
