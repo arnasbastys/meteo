@@ -3,6 +3,7 @@ import {
   Context,
   Router,
   RouterContext,
+  send,
 } from 'https://deno.land/x/oak/mod.ts';
 
 const app: Application = new Application();
@@ -25,11 +26,19 @@ app.use(async (ctx: Context, next: () => Promise<unknown>) => {
 });
 
 // Static file serving (assuming there's a 'public' directory)
-app.use(async (ctx: Context, next: () => Promise<unknown>) => {
-  if (ctx.request.url.pathname.startsWith('/public')) {
-    await ctx.send({ root: `${Deno.cwd()}/public` });
-  } else {
-    await next();
+app.use(async (ctx, next) => {
+  const path = ctx.request.url.pathname;
+  // Only serve static files if no API route is matched
+  if (!ctx.response.body) {
+    try {
+      await send(ctx, path, {
+        root: `${Deno.cwd()}/public`,
+        index: 'index.html',
+      });
+    } catch (error) {
+      // If the file is not found, continue to other middleware which might send a 404
+      await next();
+    }
   }
 });
 
