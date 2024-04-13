@@ -12,7 +12,14 @@ async function fetchHourlyWeather(city) {
   }
 }
 
-function drawChart(data, elementId, valueKey, label, yAxisLabel) {
+function drawChart(
+  data,
+  latestWeather,
+  elementId,
+  valueKey,
+  label,
+  yAxisLabel
+) {
   const container = d3.select('#' + elementId);
   const containerWidth = parseInt(container.style('width'));
   const margin = { top: 40, right: 20, bottom: 60, left: 50 },
@@ -38,9 +45,6 @@ function drawChart(data, elementId, valueKey, label, yAxisLabel) {
       };
     })
     .filter((d) => !isNaN(d[valueKey]) && d.forecastTimeUtc != null);
-
-  // Log data to check for any issues
-  console.log('Filtered Data for Chart:', data);
 
   // Define scales
   const x = d3
@@ -71,7 +75,8 @@ function drawChart(data, elementId, valueKey, label, yAxisLabel) {
   svg
     .append('g')
     .attr('transform', `translate(0,${height})`)
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x).tickFormat(d3.timeFormat('%H:%M'))); // Format as HH:MM
+
   svg.append('g').call(d3.axisLeft(y));
 
   // Add labels
@@ -136,6 +141,14 @@ function drawChart(data, elementId, valueKey, label, yAxisLabel) {
     .text('Current Time')
     .style('fill', 'red')
     .style('font-size', '12px');
+
+  svg
+    .append('text')
+    .attr('x', x(currentTime) + 5)
+    .attr('y', y(latestWeather[valueKey]) - 10)
+    .text(`Current value: ${latestWeather[valueKey]}`)
+    .style('fill', 'blue')
+    .style('font-size', '12px');
 }
 
 function displayCurrentWeather(weather) {
@@ -151,12 +164,13 @@ function displayCurrentWeather(weather) {
 
 async function fetchDataAndDrawCharts(city) {
   const data = await fetchHourlyWeather(city);
+  const latestWeather = findClosestWeatherForecast(data);
   if (data && data.length > 0) {
-    const latestWeather = data[0]; // Assuming the latest entry is the current weather
     displayCurrentWeather(latestWeather);
   }
   drawChart(
     data,
+    latestWeather,
     'temperatureChart',
     'airTemperature',
     'Forecast Time UTC',
@@ -164,6 +178,7 @@ async function fetchDataAndDrawCharts(city) {
   );
   drawChart(
     data,
+    latestWeather,
     'feelsLikeTempChart',
     'feelsLikeTemperature',
     'Forecast Time UTC',
@@ -171,6 +186,7 @@ async function fetchDataAndDrawCharts(city) {
   );
   drawChart(
     data,
+    latestWeather,
     'windSpeedChart',
     'windSpeed',
     'Forecast Time UTC',
@@ -178,6 +194,7 @@ async function fetchDataAndDrawCharts(city) {
   );
   drawChart(
     data,
+    latestWeather,
     'windGustChart',
     'windGust',
     'Forecast Time UTC',
@@ -185,6 +202,7 @@ async function fetchDataAndDrawCharts(city) {
   );
   drawChart(
     data,
+    latestWeather,
     'cloudCoverChart',
     'cloudCover',
     'Forecast Time UTC',
@@ -192,6 +210,7 @@ async function fetchDataAndDrawCharts(city) {
   );
   drawChart(
     data,
+    latestWeather,
     'pressureChart',
     'seaLevelPressure',
     'Forecast Time UTC',
@@ -199,6 +218,7 @@ async function fetchDataAndDrawCharts(city) {
   );
   drawChart(
     data,
+    latestWeather,
     'humidityChart',
     'relativeHumidity',
     'Forecast Time UTC',
@@ -206,11 +226,44 @@ async function fetchDataAndDrawCharts(city) {
   );
   drawChart(
     data,
+    latestWeather,
     'precipitationChart',
     'totalPrecipitation',
     'Forecast Time UTC',
     'Total Precipitation (mm)'
   );
+}
+
+function findClosestWeatherForecast(weatherData) {
+  // Get the current date and time
+  const now = new Date();
+
+  // Function to calculate the absolute difference in hours between two dates
+  function hourDifference(date1, date2) {
+    return Math.abs(date1 - date2) / 36e5; // 36e5 is the number of milliseconds in an hour
+  }
+
+  // Initialize variables to keep track of the closest time and its index
+  let closestForecast = null;
+  let minimumDifference = Infinity;
+
+  // Loop through the weather data
+  weatherData.forEach((forecast) => {
+    // Convert the forecast time string to a Date object
+    const forecastTime = new Date(forecast.forecastTimeUtc);
+
+    // Calculate the hour difference
+    const difference = hourDifference(now, forecastTime);
+
+    // Check if this time is closer than the current closest
+    if (difference < minimumDifference) {
+      closestForecast = forecast;
+      minimumDifference = difference;
+    }
+  });
+
+  // Return the closest forecast
+  return closestForecast;
 }
 
 fetchDataAndDrawCharts('vilnius');
