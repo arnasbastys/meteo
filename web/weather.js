@@ -12,7 +12,7 @@ async function fetchHourlyWeather(city) {
   }
 }
 
-async function drawChart(data, elementId, valueKey, label, yAxisLabel) {
+function drawChart(data, elementId, valueKey, label, yAxisLabel) {
   const margin = { top: 40, right: 20, bottom: 60, left: 50 },
     width = 600 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
