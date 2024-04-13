@@ -1,16 +1,31 @@
-.chart {
-  width: 100%; /* Adjust based on your layout needs */
-  max-width: 600px;
-  height: 400px;
-  margin: 20px auto;
+/* Basic reset and body styling */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
+/* Responsive container for charts */
+.chart {
+  width: 100%; /* Flexibility for mobile devices */
+  max-width: 600px; /* Max width on larger screens */
+  height: auto; /* Dynamic height */
+  aspect-ratio: 3 / 2; /* Maintain aspect ratio */
+  margin: 20px auto; /* Centering charts */
+  background: #f8f9fa; /* Light grey background */
+  border-radius: 8px; /* Rounded corners for modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Current weather header styling */
 .current-weather {
   text-align: center;
   padding: 20px;
-  background-color: #007bff;
+  background-color: #007bff; /* Primary blue background */
   color: white;
   margin-bottom: 20px;
+  border-radius: 8px; /* Consistency with charts */
 }
 
 .current-weather h1 {
@@ -23,32 +38,57 @@
   font-size: 18px;
 }
 
+/* SVG line styling for charts */
 .line {
   fill: none;
-  stroke-width: 2.5;
+  stroke-width: 2.5px;
   stroke-linejoin: round;
   stroke-linecap: round;
 }
 
+/* SVG gradient styling for visual appeal */
 .gradient {
-  stroke: url(#gradient);
+  stroke: url(#gradient); /* Gradient reference for line color */
 }
 
+/* Axis styling for clarity */
 .axis path,
 .axis line {
   fill: none;
-  stroke: grey;
-  stroke-width: 1;
+  stroke: #ccc; /* Lighter stroke for subtlety */
+  stroke-width: 1px;
   shape-rendering: crispEdges;
 }
 
 .axis text {
-  font-size: 12px;
-  font-family: Arial, sans-serif;
+  font-size: 12px; /* Smaller font for space efficiency */
+  fill: #333; /* Darker color for better readability */
 }
 
+/* Style for current time marker */
 .current-time-marker {
-  stroke: red; /* Red line for visibility */
+  stroke: red; /* Bright color for visibility */
   stroke-width: 2px;
   stroke-dasharray: 5, 5; /* Dashed line style */
+}
+
+/* Responsive text styling for labels */
+svg text {
+  font-size: 12px; /* Uniform font size */
+  fill: #333; /* Enhancing readability */
+}
+
+@media (max-width: 600px) {
+  .chart {
+    height: 300px; /* Smaller height for smaller screens */
+  }
+
+  .current-weather h1,
+  .current-weather div {
+    font-size: 20px; /* Larger font for readability on mobile */
+  }
+
+  .axis text {
+    font-size: 10px; /* Adjusting to smaller screen */
+  }
 }
