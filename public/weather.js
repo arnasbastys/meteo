@@ -34,13 +34,16 @@ function drawChart(
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  // Parse the date and format data
+  // Parse the date and adjust to local time
   const parseTime = d3.timeParse('%Y-%m-%d %H:%M:%S');
   data = data
     .map((d) => {
+      const utcDate = parseTime(d.forecastTimeUtc);
       return {
         ...d,
-        forecastTimeUtc: parseTime(d.forecastTimeUtc),
+        forecastTimeUtc: new Date(
+          utcDate.getTime() - utcDate.getTimezoneOffset() * 60000
+        ),
         [valueKey]: +d[valueKey],
       };
     })
@@ -234,35 +237,25 @@ async function fetchDataAndDrawCharts(city) {
   );
 }
 
-function findClosestWeatherForecast(weatherData) {
-  // Get the current date and time
+function findClosestWeatherForecast(forecasts) {
+  // Get the current time in UTC+3 and convert it to UTC
   const now = new Date();
+  const currentUtcTime = new Date(now.getTime() - 3 * 60 * 60 * 1000);
 
-  // Function to calculate the absolute difference in hours between two dates
-  function hourDifference(date1, date2) {
-    return Math.abs(date1 - date2) / 36e5; // 36e5 is the number of milliseconds in an hour
-  }
-
-  // Initialize variables to keep track of the closest time and its index
   let closestForecast = null;
-  let minimumDifference = Infinity;
+  let smallestDifference = Infinity;
 
-  // Loop through the weather data
-  weatherData.forEach((forecast) => {
-    // Convert the forecast time string to a Date object
+  // Iterate through the forecast data to find the closest time
+  forecasts.forEach((forecast) => {
     const forecastTime = new Date(forecast.forecastTimeUtc);
+    const timeDifference = Math.abs(forecastTime - currentUtcTime);
 
-    // Calculate the hour difference
-    const difference = hourDifference(now, forecastTime);
-
-    // Check if this time is closer than the current closest
-    if (difference < minimumDifference) {
+    if (timeDifference < smallestDifference) {
+      smallestDifference = timeDifference;
       closestForecast = forecast;
-      minimumDifference = difference;
     }
   });
 
-  // Return the closest forecast
   return closestForecast;
 }
 
