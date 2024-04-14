@@ -137,21 +137,24 @@ function drawChart(
     .style('stroke-dasharray', '5,5');
 
   // Add text label for current time marker
+  const formatTime = d3.timeFormat('%H:%M'); // Format the time to hour and minute
+
   svg
     .append('text')
-    .attr('x', x(currentTime) + 5)
-    .attr('y', 20)
-    .text('Current Time')
+    .attr('x', x(currentTime) + 5) // Set the x position right of the current time line
+    .attr('y', 20) // Set the y position near the top of the chart
+    .text(formatTime(currentTime)) // Use the formatted current time
     .style('fill', 'red')
     .style('font-size', '12px');
 
   svg
     .append('text')
-    .attr('x', x(currentTime) + 5)
-    .attr('y', y(latestWeather[valueKey]) - 10)
+    .attr('x', width / 2)
+    .attr('y', height + margin.bottom - 10)
+    .attr('text-anchor', 'middle')
     .text(`Current value: ${latestWeather[valueKey]}`)
     .style('fill', 'blue')
-    .style('font-size', '12px');
+    .style('font-size', '15px');
 }
 
 function displayCurrentWeather(weather) {
@@ -176,7 +179,7 @@ async function fetchDataAndDrawCharts(city) {
     latestWeather,
     'temperatureChart',
     'airTemperature',
-    'Forecast Time UTC',
+    'Forecast Time',
     'Air Temperature (°C)'
   );
   drawChart(
@@ -184,7 +187,7 @@ async function fetchDataAndDrawCharts(city) {
     latestWeather,
     'feelsLikeTempChart',
     'feelsLikeTemperature',
-    'Forecast Time UTC',
+    'Forecast Time',
     'Feels Like Temperature (°C)'
   );
   drawChart(
@@ -192,7 +195,7 @@ async function fetchDataAndDrawCharts(city) {
     latestWeather,
     'windSpeedChart',
     'windSpeed',
-    'Forecast Time UTC',
+    'Forecast Time',
     'Wind Speed (km/h)'
   );
   drawChart(
@@ -200,7 +203,7 @@ async function fetchDataAndDrawCharts(city) {
     latestWeather,
     'windGustChart',
     'windGust',
-    'Forecast Time UTC',
+    'Forecast Time',
     'Wind Gust (km/h)'
   );
   drawChart(
@@ -208,7 +211,7 @@ async function fetchDataAndDrawCharts(city) {
     latestWeather,
     'cloudCoverChart',
     'cloudCover',
-    'Forecast Time UTC',
+    'Forecast Time',
     'Cloud Cover (%)'
   );
   drawChart(
@@ -216,7 +219,7 @@ async function fetchDataAndDrawCharts(city) {
     latestWeather,
     'pressureChart',
     'seaLevelPressure',
-    'Forecast Time UTC',
+    'Forecast Time',
     'Sea Level Pressure (hPa)'
   );
   drawChart(
