@@ -75,7 +75,7 @@ function drawChart(
   svg
     .append('g')
     .attr('transform', `translate(0,${height})`)
-    .call(d3.axisBottom(x).tickFormat(d3.timeFormat('%H:%M'))); // Format as HH:MM
+    .call(d3.axisBottom(x).tickFormat(d3.timeFormat('%H'))); // Format as HH
 
   svg.append('g').call(d3.axisLeft(y));
 
