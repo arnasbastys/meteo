@@ -50,6 +50,7 @@ export function drawChart(
     .scaleTime()
     .range([0, width])
     .domain(d3.extent(data, (d) => d.forecastTimeUtc));
+
   const y = d3
     .scaleLinear()
     .range([height, 0])
@@ -57,6 +58,21 @@ export function drawChart(
       d3.min(data, (d) => d[valueKey] - 1),
       d3.max(data, (d) => d[valueKey]),
     ]);
+
+  // Adding grid lines for the x-axis (vertical grid lines)
+  svg
+    .append('g')
+    .attr('class', 'grid')
+    .attr('stroke-width', 0.1)
+    .attr('transform', `translate(0,${height})`)
+    .call(d3.axisBottom(x).tickSize(-height).tickFormat(''));
+
+  // Adding grid lines for the y-axis (horizontal grid lines)
+  svg
+    .append('g')
+    .attr('class', 'grid')
+    .attr('stroke-width', 0.1)
+    .call(d3.axisLeft(y).tickSize(-width).tickFormat(''));
 
   // Define the line
   const line = d3
@@ -195,7 +211,7 @@ export function drawPrecipitationChart(weatherData, elementId, valueKey) {
   );
 
   // Label every second hour, creating labels only for even hours
-  const labeledTicks = allTicks.filter((d, i) => i % 2 === 0);
+  const labeledTicks = allTicks.filter((_, i) => i % 2 === 0);
 
   // Add the x Axis with hourly ticks but labels only every two hours
   svg
