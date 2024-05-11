@@ -19,23 +19,67 @@ html {
 }
 
 /* Current weather header styling */
+/* Current weather header styling */
 .current-weather {
   text-align: center;
   padding: 20px;
   background-color: #007bff; /* Primary blue background */
   color: white;
   margin-bottom: 20px;
-  border-radius: 8px; /* Consistency with charts */
+  border-radius: 8px; /* Rounded corners for modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
+  font-family: 'Arial', sans-serif; /* Modern, readable font */
 }
 
 .current-weather h1 {
-  margin: 0;
-  padding: 0;
-  font-size: 24px;
+  margin-bottom: 0.5em; /* Space below header */
+  font-size: 28px; /* Larger for emphasis */
 }
 
-.current-weather div {
-  font-size: 18px;
+.current-weather table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  font-size: 16px; /* Adjusted for readability */
+}
+
+.current-weather th,
+.current-weather td {
+  padding: 12px;
+  text-align: left;
+  vertical-align: middle; /* Align text for better readability */
+}
+
+.current-weather th {
+  background-color: #0056b3; /* Darker blue for headers */
+  color: white;
+}
+
+.current-weather td {
+  color: #333; /* Darker text for better readability */
+  background-color: #eef0f4; /* Very light background for the cell */
+}
+
+.current-weather img {
+  width: 24px; /* Size of icons */
+  height: 24px;
+  vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+  .current-weather h1 {
+    font-size: 24px;
+  }
+
+  .current-weather th,
+  .current-weather td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .current-weather table {
+    margin-top: 10px;
+  }
 }
 
 /* SVG line styling for charts */
