@@ -119,6 +119,7 @@ export function drawChart(
     .attr('transform', `translate(${width / 2}, -20)`)
     .attr('y', -5)
     .style('text-anchor', 'middle')
+    .style('font-size', '20px')
     .text(yAxisLabel);
 
   // Adding gradient to SVG
@@ -290,5 +291,6 @@ export function drawPrecipitationChart(
     .attr('transform', `translate(${width / 2}, -15)`)
     .attr('y', -10)
     .style('text-anchor', 'middle')
+    .style('font-size', '20px')
     .text(yAxisLabel);
 }
