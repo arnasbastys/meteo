@@ -3,19 +3,49 @@ export function displayCurrentWeather(data) {
   const icon = getWeatherIcon(latestWeather.conditionCode); // Get the emoji based on the condition code
 
   const details = `
-          <table>
-              <tr><th>Temperature:</th><td>${icon} ${latestWeather.airTemperature}°C</td></tr>
-              <tr><th>Feels Like:</th><td>${icon} ${latestWeather.feelsLikeTemperature}°C</td></tr>
-              <tr><th>Wind:</th><td>${latestWeather.windSpeed} km/h</td></tr>
-              <tr><th>Gusts up to:</th><td>${latestWeather.windGust} km/h</td></tr>
-              <tr><th>Direction:</th><td>${latestWeather.windDirection}°</td></tr>
-              <tr><th>Cloud Cover:</th><td>${latestWeather.cloudCover}%</td></tr>
-              <tr><th>Humidity:</th><td>${latestWeather.relativeHumidity}%</td></tr>
-              <tr><th>Pressure:</th><td>${latestWeather.seaLevelPressure} hPa</td></tr>
-              <tr><th>Precipitation:</th><td>${latestWeather.totalPrecipitation} mm</td></tr>
-              <tr><th>Condition:</th><td>${latestWeather.conditionCode}</td></tr>
-          </table>
-      `;
+            <table>
+                <tr>
+                    <th><a href="#temperatureChart">Temperature:</a></th>
+                    <td>${icon} ${latestWeather.airTemperature}°C</td>
+                </tr>
+                <tr>
+                    <th><a href="#feelsLikeTempChart">Feels Like:</a></th>
+                    <td>${icon} ${latestWeather.feelsLikeTemperature}°C</td>
+                </tr>
+                <tr>
+                    <th><a href="#windSpeedChart">Wind:</a></th>
+                    <td>${latestWeather.windSpeed} km/h</td>
+                </tr>
+                <tr>
+                    <th><a href="#windGustChart">Gusts up to:</a></th>
+                    <td>${latestWeather.windGust} km/h</td>
+                </tr>
+                <tr>
+                    <th>Direction:</th>
+                    <td>${latestWeather.windDirection}°</td>
+                </tr>
+                <tr>
+                    <th><a href="#cloudCoverChart">Cloud Cover:</a></th>
+                    <td>${latestWeather.cloudCover}%</td>
+                </tr>
+                <tr>
+                    <th><a href="#humidityChart">Humidity:</a></th>
+                    <td>${latestWeather.relativeHumidity}%</td>
+                </tr>
+                <tr>
+                    <th><a href="#pressureChart">Pressure:</a></th>
+                    <td>${latestWeather.seaLevelPressure} hPa</td>
+                </tr>
+                <tr>
+                    <th><a href="#precipitationChart">Precipitation:</a></th>
+                    <td>${latestWeather.totalPrecipitation} mm</td>
+                </tr>
+                <tr>
+                    <th>Condition:</th>
+                    <td>${latestWeather.conditionCode}</td> <!-- No chart for this, so no link -->
+                </tr>
+            </table>
+        `;
   document.getElementById('weatherDetails').innerHTML = details;
   return latestWeather;
 }

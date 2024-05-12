@@ -122,37 +122,94 @@ svg text {
   fill: #333; /* Enhancing readability */
 }
 
+/* Current weather header styling */
+.current-weather {
+  text-align: center;
+  padding: 20px;
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.current-weather h1 {
+  margin-bottom: 0.5em;
+  font-size: 28px;
+}
+
+/* Styling for tables within the current weather section */
+.current-weather table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+/* Styling for headers in the table to indicate they are clickable */
+.current-weather th {
+  background-color: #0056b3; /* Distinct dark blue for headers */
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+.current-weather th a {
+  color: #eef0f4; /* Light blue for clickable links to ensure contrast */
+  text-decoration: none;
+  display: block;
+}
+
+.current-weather th a:hover,
+.current-weather th a:focus {
+  text-decoration: underline;
+  background-color: #004494; /* Slightly darker blue on hover/focus */
+}
+
+/* Styling for data cells for clarity */
+.current-weather td {
+  color: #333; /* Dark grey for readability */
+  background-color: #eef0f4; /* Very light grey background for contrast */
+  padding: 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* Adjustments for icons within the weather table */
+.current-weather img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+
+/* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
-  .chart {
-    height: 250px; /* Reduced height for smaller screens */
-    aspect-ratio: auto; /* Allows the browser to adjust the aspect ratio */
+  .current-weather h1 {
+    font-size: 24px;
   }
 
-  .current-weather h1,
-  .current-weather div {
-    font-size: 18px; /* Slightly reduced size for very small screens */
+  .current-weather th,
+  .current-weather td {
+    padding: 10px;
+    font-size: 14px;
   }
 
-  .axis text {
-    font-size: 10px; /* Adjusted for smaller screen */
+  .current-weather table {
+    margin-top: 10px;
   }
 }
 
-/* For extremely small screens like iPhone SE */
+/* Responsive settings for very small devices */
 @media (max-width: 320px) {
   .chart {
-    height: 200px; /* Further reduced height */
+    height: 200px;
   }
 
   .current-weather h1 {
-    font-size: 16px; /* Further reduce for tiny screens */
+    font-size: 16px;
   }
 
   .current-weather div {
-    font-size: 14px; /* Smaller font size */
-  }
-
-  .axis text {
-    font-size: 8px; /* Very small font size for axis */
+    font-size: 14px;
   }
 }
