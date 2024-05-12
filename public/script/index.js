@@ -18,9 +18,10 @@ async function fetchDataAndDrawCharts(city) {
   );
   drawPrecipitationChart(
     data,
+    latestWeather,
     'precipitationChart',
     'totalPrecipitation',
-    'Forecast Time UTC',
+    'Forecast Time',
     'Total Precipitation (mm)'
   );
   drawChart(

@@ -114,6 +114,13 @@ export function drawChart(
     .style('text-anchor', 'middle')
     .text(label);
 
+  svg
+    .append('text')
+    .attr('transform', `translate(${width / 2}, -20)`)
+    .attr('y', -5)
+    .style('text-anchor', 'middle')
+    .text(yAxisLabel);
+
   // Adding gradient to SVG
   const defs = svg.append('defs');
   const gradient = defs
@@ -166,14 +173,21 @@ export function drawChart(
   svg
     .append('text')
     .attr('x', width / 2)
-    .attr('y', -20)
+    .attr('y', -10)
     .attr('text-anchor', 'middle')
     .text(`Current value: ${latestWeather[valueKey]}`)
     .style('fill', 'blue')
-    .style('font-size', '15px');
+    .style('font-size', '10px');
 }
 
-export function drawPrecipitationChart(weatherData, elementId, valueKey) {
+export function drawPrecipitationChart(
+  weatherData,
+  latestWeather,
+  elementId,
+  valueKey,
+  forcasttime,
+  yAxisLabel
+) {
   const { svg, width, height } = setupSvgChart(elementId);
 
   const data = parseTime(weatherData, valueKey);
@@ -254,4 +268,27 @@ export function drawPrecipitationChart(weatherData, elementId, valueKey) {
     .text(formatTime(currentTime))
     .style('fill', 'red')
     .style('font-size', '12px');
+
+  svg
+    .append('text')
+    .attr('x', width / 2)
+    .attr('y', -10)
+    .attr('text-anchor', 'middle')
+    .text(`Current value: ${latestWeather[valueKey]}`)
+    .style('fill', 'blue')
+    .style('font-size', '10px');
+
+  svg
+    .append('text')
+    .attr('transform', `translate(${width / 2}, -20)`)
+    .attr('y', height + 60)
+    .style('text-anchor', 'middle')
+    .text(forcasttime);
+
+  svg
+    .append('text')
+    .attr('transform', `translate(${width / 2}, -15)`)
+    .attr('y', -10)
+    .style('text-anchor', 'middle')
+    .text(yAxisLabel);
 }
